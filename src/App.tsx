@@ -1,7 +1,7 @@
 import "./App.css";
 
 function App() {
-  return <div>두둥탁!</div>;
+  return <div>test!!!</div>;
 }
 
 export default App;
