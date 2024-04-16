@@ -25,12 +25,9 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      # 실행기에서 명령을 실행하도록 작업을 지시. 하단 명령은 실행기에서 bats 패키지를 설치하고 실행하는데 사용
+      - run: npm install -g bats
+      - run: bats -v
 
       - name: Build
         run: pnpm build
-
-      # 실행기에서 명령을 실행하도록 작업을 지시. 하단 명령은 실행기에서 bats 패키지를 설치하고 실행하는데 사용
-      # - run: npm install -g bats
-      # - run: bats -v
