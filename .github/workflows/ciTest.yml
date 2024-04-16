@@ -1,13 +1,36 @@
+# 워크플로 네임(생략가능)
 name: ciTest
+
+# 워크플로에서 생성된 워크플로 실행의 이름(생략 가능)
 run-name: ${{ github.actor }} is learning GitHub Actions
-on: [push]
+
+# 워크 플로가 시작될 조건(트리거)
+on:
+  push:
+    branches:
+      - master
+
+# 워크 플로에서 실행되는 모든 작업을 그룹화
 jobs:
+  # 작업의 이름 하위키는 작업의 속성을 정의
   check-bats-version:
+    # 실행 환경
     runs-on: ubuntu-latest
+
+    # 실행스텝
     steps:
+      # uses에 정의한 작업이 실행됨을 지정.
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - run: npm install -g bats
-      - run: bats -v
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      # 실행기에서 명령을 실행하도록 작업을 지시. 하단 명령은 실행기에서 bats 패키지를 설치하고 실행하는데 사용
+      # - run: npm install -g bats
+      # - run: bats -v
